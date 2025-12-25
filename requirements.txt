@@ -24,6 +24,8 @@ httptools==0.7.1
     # via -r requirements.in
 idna==3.11
     # via anyio
+mysql-connector-python==9.5.0
+    # via -r requirements.in
 pydantic==2.12.5
     # via fastapi
 pydantic-core==2.41.5
