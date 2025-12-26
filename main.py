@@ -25,7 +25,10 @@ class PingMessage(Message):
     ping: float = Field(..., example=0.47, description="Response Query Time")
 
 
-app = FastAPI()
+app = FastAPI(
+        docs_url=None,
+        redoc_url="/docs",
+    )
 default_responses = {
         503: { 'model': Message, 'description': "Backend is unreachable." },
     }
