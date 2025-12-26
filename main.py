@@ -1,5 +1,6 @@
-from fastapi import FastAPI, Depends, HTTPException
-from pydantic import BaseModel
+import textwrap
+from fastapi import FastAPI, Query, Path, Depends, HTTPException
+from pydantic import BaseModel, Field
 import database
 
 from time import time
@@ -18,7 +19,18 @@ def fetch_connection():
                 raise
 
 
-@app.get("/health")
+class HealthCheckResponse(BaseModel):
+    status: str = Field(..., example="ok", description=textwrap.dedent("""\
+    The status of the backend service
+
+    - `ok`: all systems nominal
+    - `warn`: backend database sent a warning
+    - `fatal`: backend service could not be reached"""))
+    message: str = Field(..., example='', description="An additional message providing details on a potential error")
+    ping: float = Field(None, example=0.47, description="The time used to query the backend database")
+
+
+@app.get("/health", response_model=HealthCheckResponse)
 def check_health(db=Depends(fetch_connection)):
     try:
         tic = time()
