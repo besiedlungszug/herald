@@ -1,5 +1,9 @@
 import mysql.connector
 import os
+import logging
+
+logger = logging.getLogger("app.database")
+
 
 try:
     pool = mysql.connector.pooling.MySQLConnectionPool(
@@ -12,7 +16,7 @@ try:
         password=os.getenv('DB_PASSWORD', ''),
     )
 except mysql.connector.Error as err:
-    print(f"Error creating pool: {err}")
+    logger.critical(f"Error creating pool: {err}")
 
 def connection():
     """Fetch a connection from the pool."""

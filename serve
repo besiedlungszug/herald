@@ -1,1 +1,1 @@
-uvicorn --env-file .env main:app
+uvicorn --env-file .env --log-config logconf.json main:app

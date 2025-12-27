@@ -3,7 +3,9 @@ from fastapi import FastAPI, Query, Path, Depends, Request, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 import database
+import logging
 
+import os
 from time import time
 import mysql.connector
 
@@ -25,6 +27,7 @@ class PingMessage(Message):
     ping: float = Field(..., example=0.47, description="Response Query Time")
 
 
+logger = logging.getLogger('app')
 app = FastAPI(
         docs_url=None,
         redoc_url="/docs",
