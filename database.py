@@ -1,5 +1,6 @@
 import mysql.connector
 import os
+import sys
 import logging
 
 logger = logging.getLogger("app.database")
@@ -17,6 +18,7 @@ try:
     )
 except mysql.connector.Error as err:
     logger.critical(f"Error creating pool: {err}")
+    sys.exit(-1)
 
 def connection():
     """Fetch a connection from the pool."""
