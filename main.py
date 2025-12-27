@@ -28,9 +28,13 @@ class PingMessage(Message):
 
 
 logger = logging.getLogger('app')
+DEBUG: bool = os.getenv('DEBUG', '').lower() == 'true'
+if DEBUG:
+    logger.info("Running in DEBUG mode. Endpoint documentation is available.")
 app = FastAPI(
+        openapi_url="/docs/openapi.json" if DEBUG else None,
         docs_url=None,
-        redoc_url="/docs",
+        redoc_url="/docs" if DEBUG else None,
     )
 default_responses = {
         503: { 'model': Message, 'description': "Backend is unreachable." },
