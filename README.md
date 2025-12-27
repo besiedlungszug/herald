@@ -21,7 +21,7 @@ instead to implicitly gather up-to-date versions for the dependencies. Use this 
 
 After installing the required packages, use
 ```sh
-uvicorn main:app --env-file .env
+./serve
 ```
 to start the server.
 
